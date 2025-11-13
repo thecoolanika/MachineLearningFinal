@@ -35,7 +35,7 @@ class FlameVisionDataset(Dataset):
         
         # Check if directories exist
         if not self.split_dir.exists():
-            raise ValueError(f"Split directory {self.split_dir} does not exist}")
+            raise ValueError(f"Split directory {self.split_dir} does not exist")
         
         # Load image paths and labels
         self.image_paths = []
