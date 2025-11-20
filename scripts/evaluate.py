@@ -9,6 +9,7 @@ import argparse
 from pathlib import Path
 import torch
 import torch.nn as nn
+import numpy as np
 
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -61,7 +62,8 @@ def main():
     
     # Load checkpoint
     print(f"Loading model from {args.model_path}...")
-    checkpoint = torch.load(args.model_path, map_location=device)
+    torch.serialization.add_safe_globals([np.core.multiarray.scalar])
+    checkpoint = torch.load(args.model_path, map_location=device, weights_only=False)
     model.load_state_dict(checkpoint['model_state_dict'])
     print(f"Model loaded from epoch {checkpoint['epoch']}")
     
