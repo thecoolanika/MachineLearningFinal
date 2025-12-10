@@ -160,15 +160,22 @@ def main():
         num_classes=2,
         pretrained=not args.no_pretrained,
     )
+
+    # Freeze backbone; train only final classifier to reduce overfitting on small data
+    for param in model.backbone.parameters():
+        param.requires_grad = False
+    for param in model.backbone.fc.parameters():
+        param.requires_grad = True
+
     model = model.to(device)
 
-    # Count parameters
+    # Count trainable parameters (should be small after freezing)
     num_params = count_parameters(model)
     print(f"Model has {num_params:,} trainable parameters")
 
-    # Loss function and optimizer
+    # Loss function and optimizer (optimize only trainable parameters)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=args.lr)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode="min", factor=0.5, patience=5
     )
