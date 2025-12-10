@@ -85,22 +85,74 @@ For detailed setup instructions, see [SETUP.md](SETUP.md).
 
 ## Usage
 
-### Training Baseline Model
+### Training Models
+
+#### Baseline CNN
 ```bash
 python scripts/train_baseline.py --epochs 50 --batch_size 32 --lr 0.001
 ```
 
-Options:
+#### EfficientNet-B0
+```bash
+python scripts/train_efficientnet.py --epochs 50 --batch_size 32 --lr 1e-4
+```
+
+#### ResNet-50
+```bash
+python scripts/train_resnet50.py --epochs 50 --batch_size 32 --lr 1e-4
+```
+
+Common training options:
 - `--epochs`: Number of training epochs (default: 50)
 - `--batch_size`: Batch size for training (default: 32)
-- `--lr`: Learning rate (default: 0.001)
+- `--lr`: Learning rate (default: 0.001 for baseline, 1e-4 for transfer learning)
 - `--image_size`: Image size for training (default: 224)
 - `--data_dir`: Path to dataset directory (default: data)
+- `--use_augmentation`: Use data augmentation (default: True)
+- `--no_pretrained`: Disable ImageNet pretraining (for transfer learning models)
 
 ### Evaluation
+
+#### Baseline CNN
 ```bash
 python scripts/evaluate.py --model_path models/baseline_cnn_best.pth
 ```
+
+#### EfficientNet-B0
+```bash
+python scripts/evaluate_efficientnet.py --model_path models/efficientnet_b0_best.pth
+```
+
+#### ResNet-50
+```bash
+python scripts/evaluate_resnet50.py --model_path models/resnet50_best.pth
+```
+
+### YOLOv8 Object Detection
+
+Run YOLOv8 inference for fire localization:
+```bash
+python scripts/yolov8_detection.py --split test --max_images 50
+```
+
+Options:
+- `--split`: Dataset split to use (train/val/test, default: test)
+- `--max_images`: Maximum number of images to process (default: 50)
+- `--model_name`: YOLOv8 model name (default: yolov8n.pt)
+- `--conf_threshold`: Confidence threshold for detections (default: 0.25)
+- `--save_results`: Save visualization results (default: True)
+
+### Results Comparison
+
+Compare all trained models:
+```bash
+python scripts/compare_results.py
+```
+
+This generates:
+- Comparison table (CSV)
+- Comparison plots (metrics visualization)
+- Summary report
 
 ### Exploratory Data Analysis
 ```bash
@@ -111,4 +163,32 @@ This generates:
 - Dataset statistics
 - Sample image visualizations
 - Image size analysis
+
+## Project Timeline
+
+The project follows this timeline:
+
+1. **Nov 6–9: Dataset setup and exploratory analysis**
+   - Download and verify FlameVision dataset structure
+   - Load sample images and understand data distribution
+   - Implement data loading and preprocessing (resizing, normalization, augmentation)
+
+2. **Nov 10–13: Baseline model training**
+   - Implement and train simple CNN for binary classification
+   - Record baseline accuracy and F1-score
+
+3. **Nov 14–17: Transfer learning experiments**
+   - Fine-tune EfficientNetB0 and ResNet50 (pretrained on ImageNet)
+   - Compare performance to baseline
+   - Save training curves and analyze overfitting
+
+4. **Nov 18–21: Light object detection trial**
+   - Use pre-trained YOLOv8 for basic fire localization
+   - Run inference on subset of images
+   - Evaluate qualitatively and measure inference time
+
+5. **Nov 22–25: Results comparison and documentation**
+   - Summarize results across all models
+   - Create comparison graphs and tables
+   - Document findings and conclusions
 
