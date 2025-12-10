@@ -43,7 +43,7 @@ Models are evaluated based on:
 │   └── utils.py            # Utility functions
 ├── notebooks/              # Jupyter notebooks for EDA
 ├── results/                # Training results and plots
-└── requirements.txt        # Python dependencies
+└── requirements.txt        # python3 dependencies
 ```
 
 ## Quick Start
@@ -58,27 +58,27 @@ pip install -r requirements.txt
 2. Download and extract the dataset to the `data/` directory
 3. Verify the setup:
 ```bash
-python scripts/download_dataset.py
+python3 scripts/download_dataset.py
 ```
 
 ### 3. Test Setup
 ```bash
-python scripts/test_setup.py
+python3 scripts/test_setup.py
 ```
 
 ### 4. Run Exploratory Data Analysis
 ```bash
-python scripts/exploratory_analysis.py
+python3 scripts/exploratory_analysis.py
 ```
 
 ### 5. Train Baseline Model
 ```bash
-python scripts/train_baseline.py --epochs 50 --batch_size 32
+python3 scripts/train_baseline.py --epochs 5 --batch_size 64
 ```
 
 ### 6. Evaluate Model
 ```bash
-python scripts/evaluate.py --model_path models/baseline_cnn_best.pth
+python3 scripts/evaluate.py --model_path models/baseline_cnn_best.pth
 ```
 
 For detailed setup instructions, see [SETUP.md](SETUP.md).
@@ -89,17 +89,17 @@ For detailed setup instructions, see [SETUP.md](SETUP.md).
 
 #### Baseline CNN
 ```bash
-python scripts/train_baseline.py --epochs 50 --batch_size 32 --lr 0.001
+python3 scripts/train_baseline.py --epochs 50 --batch_size 32 --lr 0.001
 ```
 
 #### EfficientNet-B0
 ```bash
-python scripts/train_efficientnet.py --epochs 50 --batch_size 32 --lr 1e-4
+python3 scripts/train_efficientnet.py --epochs 5 --batch_size 64 --lr 1e-4
 ```
 
 #### ResNet-50
 ```bash
-python scripts/train_resnet50.py --epochs 50 --batch_size 32 --lr 1e-4
+python3 scripts/train_resnet50.py --epochs 50 --batch_size 64 --lr 1e-4
 ```
 
 Common training options:
@@ -115,24 +115,24 @@ Common training options:
 
 #### Baseline CNN
 ```bash
-python scripts/evaluate.py --model_path models/baseline_cnn_best.pth
+python3 scripts/evaluate.py --model_path models/baseline_cnn_best.pth
 ```
 
 #### EfficientNet-B0
 ```bash
-python scripts/evaluate_efficientnet.py --model_path models/efficientnet_b0_best.pth
+python3 scripts/evaluate_efficientnet.py --model_path models/efficientnet_b0_best.pth
 ```
 
 #### ResNet-50
 ```bash
-python scripts/evaluate_resnet50.py --model_path models/resnet50_best.pth
+python3 scripts/evaluate_resnet50.py --model_path models/resnet50_best.pth
 ```
 
 ### YOLOv8 Object Detection
 
 Run YOLOv8 inference for fire localization:
 ```bash
-python scripts/yolov8_detection.py --split test --max_images 50
+python3 scripts/yolov8_detection.py --split test --max_images 50
 ```
 
 Options:
@@ -146,7 +146,7 @@ Options:
 
 Compare all trained models:
 ```bash
-python scripts/compare_results.py
+python3 scripts/compare_results.py
 ```
 
 This generates:
@@ -156,7 +156,7 @@ This generates:
 
 ### Exploratory Data Analysis
 ```bash
-python scripts/exploratory_analysis.py
+python3 scripts/exploratory_analysis.py
 ```
 
 This generates:

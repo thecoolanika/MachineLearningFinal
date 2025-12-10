@@ -86,7 +86,7 @@ def main():
 
     # Load checkpoint
     print(f"Loading model from {args.model_path}...")
-    checkpoint = torch.load(args.model_path, map_location=device)
+    checkpoint = torch.load(args.model_path, map_location=device, weights_only=False)
     model.load_state_dict(checkpoint["model_state_dict"])
     print(f"Model loaded from epoch {checkpoint['epoch']}")
 

@@ -147,27 +147,30 @@ def get_data_loaders(
         transform=test_transform
     )
     
+    # Determine if pin_memory should be used (only for CUDA, not MPS)
+    use_pin_memory = torch.cuda.is_available() and not torch.backends.mps.is_available()
+    
     # Create data loaders
     train_loader = DataLoader(
         train_dataset,
         batch_size=batch_size,
         shuffle=True,
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=use_pin_memory
     )
     val_loader = DataLoader(
         val_dataset,
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=use_pin_memory
     )
     test_loader = DataLoader(
         test_dataset,
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=use_pin_memory
     )
     
     return train_loader, val_loader, test_loader
